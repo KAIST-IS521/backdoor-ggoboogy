@@ -11,11 +11,94 @@
 
 // Global variable that indicates if the process is running.
 static bool is_running = true;
+uint8_t *mem;
 
 void usageExit() {
     // TODO: show usage
     exit(1);
 }
+uint32_t mem_read(uint32_t addr){
+    if(addr >= 8192)
+    {
+        puts("Memory is out of bound!");
+        exit(1);
+    }
+    return mem[addr];
+}
+void mem_write(uint32_t addr, uint8_t value){
+    if(addr >= 8192)
+    {
+        puts("Memory is out of bound!");
+        exit(1);
+    }
+    mem[addr] = value;
+    return;    
+}
+
+void halt(struct VMContext* ctx, const uint32_t instr) {
+    exit(0);
+}
+
+void load(struct VMContext* ctx, const uint32_t instr) {
+    int src = EXTRACT_B2(instr);
+    int dst = EXTRACT_B1(instr);
+    uint32_t addr = ctx->r[src].value;
+    ctx->r[dst].value = (uint32_t)mem_read(addr);
+}
+
+void store(struct VMContext* ctx, const uint32_t instr) {
+    int src = EXTRACT_B2(instr);
+    int dst = EXTRACT_B1(instr);
+    uint32_t addr = ctx->r[dst].value;
+    mem_write(addr, EXTRACT_B0(ctx->r[src].value));
+}
+
+void move(struct VMContext* ctx, const uint32_t instr) {
+    int src = EXTRACT_B2(instr);      
+
+}
+
+void puti(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+
+void add(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void sub(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void gt(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void ge(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void eq(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void ite(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void jump(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void puts(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
+void gets(struct VMContext* ctx, const uint32_t instr) {
+
+}
+
 
 void initFuncs(FunPtr *f, uint32_t cnt) {
     uint32_t i;
@@ -43,10 +126,11 @@ int main(int argc, char** argv) {
     FunPtr f[NUM_FUNCS];
     FILE* bytecode;
     uint32_t* pc;
-
+    
     // There should be at least one argument.
     if (argc < 2) usageExit();
 
+    mem = (uint8_t*)(malloc(8192));
     // Initialize registers.
     initRegs(r, NUM_REGS);
     // Initialize interpretation functions.
@@ -67,7 +151,7 @@ int main(int argc, char** argv) {
     }
 
     fclose(bytecode);
-
+    free(mem);
     // Zero indicates normal termination.
     return 0;
 }
