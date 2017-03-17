@@ -12,7 +12,7 @@
 // Global variable that indicates if the process is running.
 static bool is_running = true;
 uint8_t *mem;
-uint32_t * pc;
+uint32_t *pc;
 uint32_t *code_buf;
 int file_len;
 
@@ -224,6 +224,8 @@ int main(int argc, char** argv) {
 
     code_buf = malloc(file_len);
     fread(code_buf, 1, file_len, bytecode);
+
+    pc = code_buf;
 
     while (is_running) {
         stepVMContext(&vm, &pc);
