@@ -54,21 +54,28 @@ void store(struct VMContext* ctx, const uint32_t instr) {
 }
 
 void move(struct VMContext* ctx, const uint32_t instr) {
-    int src = EXTRACT_B2(instr);      
-
+    int src = EXTRACT_B2(instr);     
+    int dst = EXTRACT_B1(instr);
+    ctx->r[dst].value = ctx->r[src].value;
 }
 
 void puti(struct VMContext* ctx, const uint32_t instr) {
-
+    int dst = EXTRACT_B1(instr);
+    ctx->r[dst].value = EXTRACT_B2(instr);
 }
 
-
 void add(struct VMContext* ctx, const uint32_t instr) {
-
+    int src1 = EXTRACT_B2(instr);
+    int src2 = EXTRACT_B3(instr);
+    int dst = EXTRACT_B1(instr);
+    ctx->r[dst].value = (ctx->r[src1].value) + (ctx->r[src2].value);
 }
 
 void sub(struct VMContext* ctx, const uint32_t instr) {
-
+    int src1 = EXTRACT_B2(instr);
+    int src2 = EXTRACT_B3(instr);
+    int dst = EXTRACT_B1(instr);
+    ctx->r[dst].value = (ctx->r[src1].value) - (ctx->r[stc2].value);
 }
 
 void gt(struct VMContext* ctx, const uint32_t instr) {
