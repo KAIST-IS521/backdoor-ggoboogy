@@ -79,15 +79,33 @@ void sub(struct VMContext* ctx, const uint32_t instr) {
 }
 
 void gt(struct VMContext* ctx, const uint32_t instr) {
-
+    int target1 = EXTRACT_B2(instr);
+    int target2 = EXTRACT_B3(instr);
+    int dst = EXTRACT_B1(instr);
+    if(ctx->r[target1].value > ctx->r[target2].value)
+        ctx->r[dst].value = 1;
+    else
+        ctx->r[dst].value = 0;
 }
 
 void ge(struct VMContext* ctx, const uint32_t instr) {
-
+    int target1 = EXTRACT_B2(instr);
+    int target2 = EXTRACT_B3(instr);
+    int dst = EXTRACT_B1(instr);    
+    if(ctx->r[target1].value >= ctx->r[target2].value)
+        ctx->r[dst].value = 1;
+    else
+        ctx->r[dst].value = 0;
 }
 
 void eq(struct VMContext* ctx, const uint32_t instr) {
-
+    int target1 = EXTRACT_B2(instr);
+    int target2 = EXTRACT_B3(instr);
+    int dst = EXTRACT_B1(instr);
+    if(ctx->r[target1].value == ctx->r[target2].value)
+        ctx->r[dst].value = 1;
+    else
+        ctx->r[dst].value = 0;
 }
 
 void ite(struct VMContext* ctx, const uint32_t instr) {
