@@ -214,10 +214,6 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // file size -> malloc(filesize);
-    // uint32_t *code_buf = aasdf;
-    // fread(xx, code_buf, xx,, xx);
-
     fseek(bytecode, 0L, SEEK_END);
     file_len = ftell(bytecode);
     rewind(bytecode);
