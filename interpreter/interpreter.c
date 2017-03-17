@@ -17,10 +17,10 @@ uint32_t *code_buf;
 int file_len;
 
 void usageExit() {
-    // TODO: show usage
+    printf("./interpreter [.mini file]\n");
     exit(1);
 }
-uint32_t mem_read(uint32_t addr){
+uint8_t mem_read(uint32_t addr){
     if(addr > 8192)
     {
         puts("Memory is out of bound!");
@@ -134,23 +134,51 @@ void jump(struct VMContext* ctx, const uint32_t instr) {
 }
 
 void puts(struct VMContext* ctx, const uint32_t instr) {
+    int target = EXTRACT_B1(instr);
+    uint32_t addr = ctx->r[target].value;
+    
+    if(addr > 8192)
+    {
+        puts("Memory is out of bound!");
+        exit(1);
+    }
 
+    printf("%s\n", (char*)(mem+addr));
 }
 
 void gets(struct VMContext* ctx, const uint32_t instr) {
+    int target = EXTRACT_B1(instr);
+    uint32_t addr = ctx->r[target].value;
+    
+    if(addr > 8192)
+    {
+        puts("Memory is out of bound!");
+        exit(1);
+    }
 
+    scanf("%s", (char*)(mem+addr));
 }
-
 
 void initFuncs(FunPtr *f, uint32_t cnt) {
     uint32_t i;
     for (i = 0; i < cnt; i++) {
         f[i] = NULL;
     }
-
-    // TODO: initialize function pointers
-    // f[0x00] = halt;
-    // f[0x10] = load;
+    
+    f[0x00] = halt;
+    f[0x10] = load;
+    f[0x20] = store;
+    f[0x30] = move;
+    f[0x40] = puti;
+    f[0x50] = add;
+    f[0x60] = sub;
+    f[0x70] = gt;
+    f[0x80] = ge;
+    f[0x90] = eq;
+    f[0xa0] = ite;
+    f[0xb0] = jump;
+    f[0xc0] = puts;
+    f[0xd0] = gets;
 }
 
 void initRegs(Reg *r, uint32_t cnt)
