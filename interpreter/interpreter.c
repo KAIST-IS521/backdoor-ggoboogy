@@ -38,50 +38,50 @@ void mem_write(uint32_t addr, uint8_t value){
     return;    
 }
 
-void halt(struct VMContext* ctx, const uint32_t instr) {
+void mini_halt(struct VMContext* ctx, const uint32_t instr) {
     is_running = false;
 }
 
-void load(struct VMContext* ctx, const uint32_t instr) {
+void mini_load(struct VMContext* ctx, const uint32_t instr) {
     int src = EXTRACT_B2(instr);
     int dst = EXTRACT_B1(instr);
     uint32_t addr = ctx->r[src].value;
     ctx->r[dst].value = (uint32_t)mem_read(addr);
 }
 
-void store(struct VMContext* ctx, const uint32_t instr) {
+void mini_store(struct VMContext* ctx, const uint32_t instr) {
     int src = EXTRACT_B2(instr);
     int dst = EXTRACT_B1(instr);
     uint32_t addr = ctx->r[dst].value;
     mem_write(addr, EXTRACT_B0(ctx->r[src].value));
 }
 
-void move(struct VMContext* ctx, const uint32_t instr) {
+void mini_move(struct VMContext* ctx, const uint32_t instr) {
     int src = EXTRACT_B2(instr);     
     int dst = EXTRACT_B1(instr);
     ctx->r[dst].value = ctx->r[src].value;
 }
 
-void puti(struct VMContext* ctx, const uint32_t instr) {
+void mini_puti(struct VMContext* ctx, const uint32_t instr) {
     int dst = EXTRACT_B1(instr);
     ctx->r[dst].value = EXTRACT_B2(instr);
 }
 
-void add(struct VMContext* ctx, const uint32_t instr) {
+void mini_add(struct VMContext* ctx, const uint32_t instr) {
     int src1 = EXTRACT_B2(instr);
     int src2 = EXTRACT_B3(instr);
     int dst = EXTRACT_B1(instr);
     ctx->r[dst].value = (ctx->r[src1].value) + (ctx->r[src2].value);
 }
 
-void sub(struct VMContext* ctx, const uint32_t instr) {
+void mini_sub(struct VMContext* ctx, const uint32_t instr) {
     int src1 = EXTRACT_B2(instr);
     int src2 = EXTRACT_B3(instr);
     int dst = EXTRACT_B1(instr);
-    ctx->r[dst].value = (ctx->r[src1].value) - (ctx->r[stc2].value);
+    ctx->r[dst].value = (ctx->r[src1].value) - (ctx->r[src2].value);
 }
 
-void gt(struct VMContext* ctx, const uint32_t instr) {
+void mini_gt(struct VMContext* ctx, const uint32_t instr) {
     int target1 = EXTRACT_B2(instr);
     int target2 = EXTRACT_B3(instr);
     int dst = EXTRACT_B1(instr);
@@ -91,7 +91,7 @@ void gt(struct VMContext* ctx, const uint32_t instr) {
         ctx->r[dst].value = 0;
 }
 
-void ge(struct VMContext* ctx, const uint32_t instr) {
+void mini_ge(struct VMContext* ctx, const uint32_t instr) {
     int target1 = EXTRACT_B2(instr);
     int target2 = EXTRACT_B3(instr);
     int dst = EXTRACT_B1(instr);    
@@ -101,7 +101,7 @@ void ge(struct VMContext* ctx, const uint32_t instr) {
         ctx->r[dst].value = 0;
 }
 
-void eq(struct VMContext* ctx, const uint32_t instr) {
+void mini_eq(struct VMContext* ctx, const uint32_t instr) {
     int target1 = EXTRACT_B2(instr);
     int target2 = EXTRACT_B3(instr);
     int dst = EXTRACT_B1(instr);
@@ -111,7 +111,7 @@ void eq(struct VMContext* ctx, const uint32_t instr) {
         ctx->r[dst].value = 0;
 }
 
-void ite(struct VMContext* ctx, const uint32_t instr) {
+void mini_ite(struct VMContext* ctx, const uint32_t instr) {
     int target = EXTRACT_B1(instr);
 
     if(EXTRACT_B2(instr) >= (file_len/4) || EXTRACT_B3(instr) >= (file_len/4)) {
@@ -125,7 +125,7 @@ void ite(struct VMContext* ctx, const uint32_t instr) {
         pc = &code_buf[EXTRACT_B3(instr)-1];
 }
 
-void jump(struct VMContext* ctx, const uint32_t instr) {
+void mini_jump(struct VMContext* ctx, const uint32_t instr) {
     if(EXTRACT_B1(instr) >= (file_len/4)) {
         puts("operand is out of code bound");
         exit(1);
@@ -133,7 +133,7 @@ void jump(struct VMContext* ctx, const uint32_t instr) {
     pc = &code_buf[EXTRACT_B1(instr)-1];   
 }
 
-void puts(struct VMContext* ctx, const uint32_t instr) {
+void mini_puts(struct VMContext* ctx, const uint32_t instr) {
     int target = EXTRACT_B1(instr);
     uint32_t addr = ctx->r[target].value;
     
@@ -146,7 +146,7 @@ void puts(struct VMContext* ctx, const uint32_t instr) {
     printf("%s\n", (char*)(mem+addr));
 }
 
-void gets(struct VMContext* ctx, const uint32_t instr) {
+void mini_gets(struct VMContext* ctx, const uint32_t instr) {
     int target = EXTRACT_B1(instr);
     uint32_t addr = ctx->r[target].value;
     
@@ -165,20 +165,20 @@ void initFuncs(FunPtr *f, uint32_t cnt) {
         f[i] = NULL;
     }
     
-    f[0x00] = halt;
-    f[0x10] = load;
-    f[0x20] = store;
-    f[0x30] = move;
-    f[0x40] = puti;
-    f[0x50] = add;
-    f[0x60] = sub;
-    f[0x70] = gt;
-    f[0x80] = ge;
-    f[0x90] = eq;
-    f[0xa0] = ite;
-    f[0xb0] = jump;
-    f[0xc0] = puts;
-    f[0xd0] = gets;
+    f[0x00] = mini_halt;
+    f[0x10] = mini_load;
+    f[0x20] = mini_store;
+    f[0x30] = mini_move;
+    f[0x40] = mini_puti;
+    f[0x50] = mini_add;
+    f[0x60] = mini_sub;
+    f[0x70] = mini_gt;
+    f[0x80] = mini_ge;
+    f[0x90] = mini_eq;
+    f[0xa0] = mini_ite;
+    f[0xb0] = mini_jump;
+    f[0xc0] = mini_puts;
+    f[0xd0] = mini_gets;
 }
 
 void initRegs(Reg *r, uint32_t cnt)
