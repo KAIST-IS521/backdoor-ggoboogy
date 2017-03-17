@@ -12,13 +12,16 @@
 // Global variable that indicates if the process is running.
 static bool is_running = true;
 uint8_t *mem;
+uint32_t * pc;
+uint32_t *code_buf;
+int file_len;
 
 void usageExit() {
     // TODO: show usage
     exit(1);
 }
 uint32_t mem_read(uint32_t addr){
-    if(addr >= 8192)
+    if(addr > 8192)
     {
         puts("Memory is out of bound!");
         exit(1);
@@ -26,7 +29,7 @@ uint32_t mem_read(uint32_t addr){
     return mem[addr];
 }
 void mem_write(uint32_t addr, uint8_t value){
-    if(addr >= 8192)
+    if(addr > 8192)
     {
         puts("Memory is out of bound!");
         exit(1);
@@ -36,7 +39,7 @@ void mem_write(uint32_t addr, uint8_t value){
 }
 
 void halt(struct VMContext* ctx, const uint32_t instr) {
-    exit(0);
+    is_running = false;
 }
 
 void load(struct VMContext* ctx, const uint32_t instr) {
@@ -109,11 +112,25 @@ void eq(struct VMContext* ctx, const uint32_t instr) {
 }
 
 void ite(struct VMContext* ctx, const uint32_t instr) {
+    int target = EXTRACT_B1(instr);
 
+    if(EXTRACT_B2(instr) >= (file_len/4) || EXTRACT_B3(instr) >= (file_len/4)) {
+        puts("operand is out of code bound");
+        exit(1);
+    }
+
+    if(ctx->r[target].value > 0)
+        pc = &code_buf[EXTRACT_B2(instr)-1];
+    else if(ctx->r[target].value == 0)
+        pc = &code_buf[EXTRACT_B3(instr)-1];
 }
 
 void jump(struct VMContext* ctx, const uint32_t instr) {
-
+    if(EXTRACT_B1(instr) >= (file_len/4)) {
+        puts("operand is out of code bound");
+        exit(1);
+    }
+    pc = &code_buf[EXTRACT_B1(instr)-1];   
 }
 
 void puts(struct VMContext* ctx, const uint32_t instr) {
@@ -150,12 +167,11 @@ int main(int argc, char** argv) {
     Reg r[NUM_REGS];
     FunPtr f[NUM_FUNCS];
     FILE* bytecode;
-    uint32_t* pc;
     
     // There should be at least one argument.
     if (argc < 2) usageExit();
 
-    mem = (uint8_t*)(malloc(8192));
+    mem = (uint8_t*)(malloc(8193));
     // Initialize registers.
     initRegs(r, NUM_REGS);
     // Initialize interpretation functions.
@@ -170,8 +186,18 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    // file size -> malloc(filesize);
+    // uint32_t *code_buf = aasdf;
+    // fread(xx, code_buf, xx,, xx);
+
+    fseek(bytecode, 0L, SEEK_END);
+    file_len = ftell(bytecode);
+    rewind(bytecode);
+
+    code_buf = malloc(file_len);
+    fread(code_buf, 1, file_len, bytecode);
+
     while (is_running) {
-        // TODO: Read 4-byte bytecode, and set the pc accordingly
         stepVMContext(&vm, &pc);
     }
 
