@@ -1,15 +1,15 @@
 # IS521 Activity3: Backdoor
 
-## What I did
-* [**./interpreter/**](https://github.com/KAIST-IS521/backdoor-ggoboogy/tree/master/interpreter)
-    * interpreter.c : 
-* **./login/login.mini : TODO**
-* **./test/**
-    * test.mini : TODO
-    * test.md : TODO
-* **./backdoor/ : TODO**
-* **./compiler/compiler.ml**
-* **./generateMini/**
+## File Description
+* [**./interpreter/**](interpreter)
+    * interpreter.c : C source code that reads, translates and executes bytecode which converted by compiler.
+* [**`./login/login.mini`**](login/login.mini) : TODO
+* [**./test/**](test)
+    * [`test.mini`](test/test.mini) : TODO
+    * [`test.md`](test/test.md) : TODO
+* [**./backdoor/**](backdoor) : TODO
+* [**`./compiler/compiler.ml`**](compiler/compiler.ml) : A compiler written in Ocaml, which convert mini language code into bytecode.
+* [**./generateMini/**](generateMini)
     * generageMini.java : TODO
 
 
