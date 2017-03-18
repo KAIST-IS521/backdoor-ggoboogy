@@ -23,7 +23,8 @@ void usageExit() {
 uint8_t mem_read(uint32_t addr){
     if(addr > 8192)
     {
-        puts("Memory is out of bound!");
+        printf("Memory read is out of bound: (pc: %zd)\n", pc - code_buf);
+        printf("Accessing address: %u\n", addr);
         exit(1);
     }
     return mem[addr];
@@ -31,7 +32,8 @@ uint8_t mem_read(uint32_t addr){
 void mem_write(uint32_t addr, uint8_t value){
     if(addr > 8192)
     {
-        puts("Memory is out of bound!");
+        printf("Memory write is out of bound: (pc: %zd)\n", pc - code_buf);
+        printf("Accessing address: %u\n", addr);
         exit(1);
     }
     mem[addr] = value;
@@ -139,7 +141,7 @@ void mini_puts(struct VMContext* ctx, const uint32_t instr) {
     
     if(addr > 8192)
     {
-        puts("Memory is out of bound!");
+        printf("Memory print is out of bound: (pc: %zd)\n", pc - code_buf);
         exit(1);
     }
 
@@ -152,7 +154,7 @@ void mini_gets(struct VMContext* ctx, const uint32_t instr) {
     
     if(addr > 8192)
     {
-        puts("Memory is out of bound!");
+        printf("Memory gets is out of bound: (pc: %zd)\n", pc - code_buf);
         exit(1);
     }
 
