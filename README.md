@@ -9,7 +9,7 @@
 * [**./test/**](test)
     * [`test.mini`](test/test.mini) : A test program written in Mini Language, which randomly chooses a **donation angel** who will buy others coffee.
     * [`test.md`](test/test.md) : A description file which explains a `test.mini` program in detail.
-* [**./backdoor/**](backdoor) : TODO
+* [**./backdoor/**](backdoor) : I copied `interpreter.c` and then added some code in `gets`, `puts`, and `eq` functions. I tested my backdoor program with my colleague (moonbeam, soomin, daramg, seongil)'s `login.mini`, and I got all correct result except soomin's one. 
 * [**./compiler/**](compiler)
     * [`compiler.ml`](compiler/compiler.ml) : A compiler written in Ocaml, which convert mini language code into bytecode.
 * [**./generateMini/**](generateMini)
@@ -20,4 +20,4 @@
 * I learned how compiler understands source code and converts them into bytecode.
 * I learned how interpreter handles and executes bytecode.
 * When I made a mini source code program by my hand, I realized that I don't have trust in my eyes and fingers. So, I made a program that automatically generates mini source code from the input file. However, I figured out that coding by my hand would be more faster, unless making a new compiler which supports all possible functions.
-
+* When I made a test program, I tried to make creative one and I'm proud of my result.
