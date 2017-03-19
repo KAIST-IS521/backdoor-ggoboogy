@@ -16,7 +16,7 @@ $ java generateMini [input file] > [result file]
 ## Example
 ### C Source Code
  
-```
+```c
 void main ( void )
 {
   char * buf = malloc ( /* some amount */ );
