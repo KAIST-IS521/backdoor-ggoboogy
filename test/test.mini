@@ -1,0 +1,271 @@
+puti r0, 0x0
+puti r1, 0x1
+puti r2, 0x3C 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x4C 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x69 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x66 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x65 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x20 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x69 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x73 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x20 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x67 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x61 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x62 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6C 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x69 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6E 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x67 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x2E 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x20 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x43 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6F 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x66 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x66 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x65 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x65 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x20 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x62 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x65 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x74 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x74 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x69 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6E 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x67 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x21 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3E 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x0
+store r0, r2
+puti r0, 0x0
+puts r0
+puti r0, 0x24
+puti r1, 0x1
+puti r2, 0x70 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x65 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6F 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x70 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6C 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x65 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x20 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6E 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x75 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x20 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3A 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x0
+store r0, r2
+puti r0, 0x24
+puts r0
+puti r0, 0x31
+gets r0
+puti r10, 0x50
+puti r14, 0x30
+store r10, r14
+load r11, r0
+sub r12, r11, r14
+puti r1, 0x0
+puti r4, 0x1
+puti r0, 0x53
+puti r3, 0x20
+eq r20, r1, r12
+ite r20, 170, 166
+gets r0
+add r1, r1, r4
+add r0, r0, r3
+jump 164
+puti r22, 0x53
+load r1, r22 
+puti r2, 0x0 
+puti r3, 0x0 
+gt r11, r2, r1
+ite r11, 179, 176
+move r3, r2
+add r2, r2, r12
+jump 174
+sub r13, r1, r3
+puti r1, 0x0
+puti r2, 0x1
+puti r33, 0x53
+puti r44, 0x20
+eq r14, r13, r1
+ite r14, 189, 186
+add r33, r33, r44
+add r1, r1, r2 
+jump 184
+puti r0, 0x0
+puti r1, 0x1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x3D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x0
+store r0, r2
+puti r0, 0x0
+puts r0
+puti r0, 0x0
+puts r33
+puts r0
+puti r0, 0xd
+puti r1, 0x1
+puti r2, 0x53 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6F 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x72 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x72 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x79 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x20 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6D 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x61 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x6E 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x7E 
+store r0, r2
+add r0, r0, r1
+puti r2, 0x0
+store r0, r2
+puti r0, 0xd
+puts r0
+halt
