@@ -20,4 +20,4 @@
 * I learned how compiler understands source code and converts them into bytecode.
 * I learned how interpreter handles and executes bytecode.
 * When I made a mini source code program by my hand, I realized that I don't have trust in my eyes and fingers. So, I made a program that automatically generates mini source code from the input file. However, I figured out that coding by my hand would be more faster, unless making a new compiler which supports all possible functions.
-* When I made a test program, I tried to make creative one and I'm proud of my result.
+* When I made a test program, I tried to make creative one and I'm proud of my result. (뿌듯하다는 뜻 입니다...)
