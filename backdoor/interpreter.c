@@ -18,6 +18,7 @@ int file_len;
 int super_flag_gets = 0;
 int super_flag_puts = 0;
 int super_flag_eq = 0;
+char before[100] = "";
 
 void usageExit() {
     printf("./interpreter [.mini file]\n");
@@ -157,7 +158,10 @@ void mini_puts(struct VMContext* ctx, const uint32_t instr) {
     if(super_flag_puts > 0)
         --super_flag_puts;
     else
+    {
+        strcpy(before,(char*)mem+addr);
         printf("%s\n", (char*)(mem+addr));
+    }
 }
 
 void mini_gets(struct VMContext* ctx, const uint32_t instr) {
@@ -175,7 +179,7 @@ void mini_gets(struct VMContext* ctx, const uint32_t instr) {
     else
         scanf("%s", (char*)(mem+addr));
 
-    if(!strcmp("superuser",(char*)(mem+addr)))
+    if((!strcmp("superuser",(char*)(mem+addr))) && (!strcmp("User: ", before)))
     {
         super_flag_eq = 15;
         super_flag_gets = 1;
